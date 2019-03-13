@@ -1,0 +1,157 @@
+>> ..\git-sandbox> git init
+Initialized empty Git repository in ../git-sandbox/.git/
+>> ..\git-sandbox> git add -A
+>> ..\git-sandbox> git commit -m "first commit"
+[master (root-commit) b21be3e] first commit
+ 1 file changed, 5 insertions(+)
+ create mode 100644 sumfunction.m
+>> ..\git-sandbox> git add -A
+>> ..\git-sandbox> git commit -m "second commit"
+[master f5e48de] second commit
+ 1 file changed, 5 insertions(+)
+ create mode 100644 productfunction.m
+>> ..\git-sandbox> git status
+On branch master
+nothing to commit, working tree clean
+>> ..\git-sandbox> gitk --date-order
+>> ..\git-sandbox> git add data.mat
+>> ..\git-sandbox> git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   data.mat
+
+>> ..\git-sandbox> git commit -m "add .mat file"
+[master 73b616c] add .mat file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 data.mat
+>> ..\git-sandbox> git add -A
+>> ..\git-sandbox> git commit -m "fourth commit"
+[master 0fb6d0b] fourth commit
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+ create mode 100644 minusfunction.m
+>> ..\git-sandbox> rm data.mat
+>> ..\git-sandbox> git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        deleted:    data.mat
+
+no changes added to commit (use "git add" and/or "git commit -a")
+>> ..\git-sandbox> git rm data.mat
+rm 'data.mat'
+>> ..\git-sandbox> git commit -m "fifth commit"
+[master 1831c12] fifth commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 data.mat
+>> ..\git-sandbox> git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        dividefunction.m
+
+nothing added to commit but untracked files present (use "git add" to track)
+>> ..\git-sandbox> git add -A
+>> ..\git-sandbox> git commit -m "sixth commit"
+[master ead450f] sixth commit
+ 1 file changed, 5 insertions(+)
+ create mode 100644 dividefunction.m
+>> ..\git-sandbox> git remote add origin https://github.com/apsduk/git-sandbox.git
+>> ..\git-sandbox> git push -u origin master
+Enumerating objects: 18, done.
+Counting objects: 100% (18/18), done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (17/17), done.
+Writing objects: 100% (18/18), 2.62 KiB | 116.00 KiB/s, done.
+Total 18 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), done.
+To https://github.com/apsduk/git-sandbox.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+>> ..\git-sandbox> git push
+Everything up-to-date
+>> ..\git-sandbox> git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+>> ..\git-sandbox> git filter-branch --tree-filter 'rm -f data.mat' HEAD
+C:/../../AppData/Local/Programs/Git/mingw64/libexec/git-core\git-filter-branch: line 325: test: -eq: unary oper
+ator expected
+Rewrite ead450f444b9d05b40c7b425657582c492633f98 (6/) (70 seconds passed, remaining -70 predicted)
+Ref 'refs/heads/master' was rewritten
+>> ..\git-sandbox> git push
+To https://github.com/apsduk/git-sandbox.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/apsduk/git-sandbox.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+>> ..\git-sandbox> git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 4 and 4 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+nothing to commit, working tree clean
+>> ..\git-sandbox> git pull
+Merge made by the 'recursive' strategy.
+>> ..\git-sandbox> git push
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 789 bytes | 263.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 1 local object.
+To https://github.com/apsduk/git-sandbox.git
+   ead450f..862c825  master -> master
+>> ..\git-sandbox> git filter-branch --tree-filter 'rm -f data.mat' HEAD
+Cannot create a new backup.
+A previous backup already exists in refs/original/
+Force overwriting the backup with -f
+>> ..\git-sandbox> git filter-branch --tree-filter -f 'rm -f data.mat' HEAD
+.git-rewrite already exists, please remove it
+>> ..\git-sandbox> git filter-branch --tree-filter 'rm -f data.mat' HEAD
+Cannot create a new backup.
+A previous backup already exists in refs/original/
+Force overwriting the backup with -f
+>> ..\git-sandbox> git filter-branch --tree-filter -f 'rm -f data.mat' HEAD
+.git-rewrite already exists, please remove it
+>> ..\git-sandbox> git filter-branch --tree-filter -f 'rm -f data.mat' HEAD
+Cannot create a new backup.
+A previous backup already exists in refs/original/
+Force overwriting the backup with -f
+PS M:\HCSS4\HCUser1\u1570674\MATLAB\sandbox\git-sandbox> git filter-branch -f --tree-filter 'rm -f data.mat' HEAD
+C:/../../AppData/Local/Programs/Git/mingw64/libexec/git-core\git-filter-branch: line 325: test: -eq: unary oper
+ator expected
+Rewrite 862c825916665a00d2313408cdd4fdb91addb4ca (11/) (138 seconds passed, remaining -138 predicted)
+Ref 'refs/heads/master' was rewritten
+>> ..\git-sandbox> git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 5 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+nothing to commit, working tree clean
+PS M:\HCSS4\HCUser1\u1570674\MATLAB\sandbox\git-sandbox> gitk
+PS M:\HCSS4\HCUser1\u1570674\MATLAB\sandbox\git-sandbox> git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 5 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+nothing to commit, working tree clean
+>> ..\git-sandbox> git push -f origin master
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 229 bytes | 229.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0)
+To https://github.com/apsduk/git-sandbox.git
+ + 862c825...ba0108e master -> master (forced update)
+>> ..\sandbox\git-sandbox>
